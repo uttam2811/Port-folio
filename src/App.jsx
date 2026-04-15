@@ -1,27 +1,34 @@
-import Cursor from './components/Cursor';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
-import Certifications from './components/Certifications';
-import Education from './components/Education';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import { useState } from 'react'
+import Cursor      from './components/Cursor'
+import Loader      from './components/Loader'
+import HUD         from './components/HUD'
+import Navbar      from './components/Navbar'
+import Hero        from './components/Hero'
+import Projects    from './components/Projects'
+import Profile     from './components/Profile'
+import Contact     from './components/Contact'
+import Footer      from './components/Footer'
 
 export default function App() {
+  const [loaded, setLoaded] = useState(false)
+
   return (
     <>
       <Cursor />
-      <Navbar />
-      <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Certifications />
-      <Education />
-      <Contact />
-      <Footer />
+      {!loaded && <Loader onDone={() => setLoaded(true)} />}
+      {loaded && (
+        <>
+          <HUD />
+          <Navbar />
+          <main>
+            <Hero />
+            <Projects />
+            <Profile />
+            <Contact />
+          </main>
+          <Footer />
+        </>
+      )}
     </>
-  );
+  )
 }

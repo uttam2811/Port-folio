@@ -1,20 +1,23 @@
-.cursor-dot {
-  width: 12px; height: 12px;
-  background: var(--accent);
-  border-radius: 50%;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: screen;
+.c-dot {
+  width:10px; height:10px;
+  background:var(--green);
+  border-radius:50%;
+  position:fixed; top:0; left:0;
+  pointer-events:none; z-index:9995;
+  box-shadow:0 0 8px var(--green);
 }
-.cursor-ring {
-  width: 36px; height: 36px;
-  border: 1px solid var(--accent);
-  border-radius: 50%;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9998;
-  opacity: 0.5;
+.c-ring {
+  width:44px; height:44px;
+  border:1px solid var(--green);
+  border-radius:50%;
+  position:fixed; top:0; left:0;
+  pointer-events:none; z-index:9994;
+  opacity:0.5;
+  transition:width .2s,height .2s,border-color .2s,background .2s;
+}
+.c-ring.big {
+  width:64px; height:64px;
+  border-color:var(--green2);
+  background:rgba(0,255,65,0.06);
+  opacity:0.4;
 }

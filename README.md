@@ -1,50 +1,48 @@
-# Uttam M — Personal Portfolio
+# UTTAM M — Portfolio
 
-![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react) ![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat&logo=vite)
+![React](https://img.shields.io/badge/React-18-00ff41?style=flat&logo=react&logoColor=00ff41&labelColor=020a06) ![Vite](https://img.shields.io/badge/Vite-5-00ff41?style=flat&logo=vite&logoColor=00ff41&labelColor=020a06)
 
-> A modern, dark-themed personal portfolio website built with React and Vite.
+> Military/surveillance HUD aesthetic portfolio — inspired by killianherzer.com
 
-## About
+## SUBJECT PROFILE
 
 **Uttam M** | B.Tech Electrical & Electronics Engineering  
 ASE, Coimbatore · Amrita Vishwa Vidyapeetham · 2026
 
-## Features
+## FEATURES
 
-- Custom animated cursor with trailing ring effect
-- Animated hero with scrolling grid background and stat cards
-- Scroll-reveal animations on all sections
-- 3D card tilt on project and certification cards
-- Fully responsive — mobile, tablet, desktop
+- Animated INITIALIZING preloader with terminal typing + progress bar
+- Full-screen scanline + vignette CRT overlay
+- Live HUD corners: clock, coordinates, CAM REC indicator, mouse position
+- Glitch effect on hero name
+- Typewriter hero subtitle
+- Horizontal drag-to-scroll EVIDENCE BOARD (projects)
+- Click-to-decrypt project modal overlay
+- SUBJECT PROFILE with identity card, experience, education, skills, certifications
+- Terminal-style contact form
+- Custom dot + ring cursor
+- Fully responsive
 
-## Project Structure
+## STRUCTURE
 
 ```
 src/
 ├── components/
-│   ├── Cursor.jsx         # Custom animated cursor
-│   ├── Navbar.jsx         # Responsive sticky navigation
-│   ├── Hero.jsx           # Landing hero section
-│   ├── About.jsx          # Bio and skill tags
-│   ├── Experience.jsx     # Internship timeline
-│   ├── Projects.jsx       # MATLAB project showcase
-│   ├── Certifications.jsx # Certification cards
-│   ├── Education.jsx      # Academic timeline
-│   ├── Contact.jsx        # Contact links
-│   └── Footer.jsx         # Footer
-├── App.jsx                # Root component
-├── main.jsx               # Entry point
-└── index.css              # Global styles and CSS variables
+│   ├── Cursor.jsx / .css       # Custom animated cursor
+│   ├── Loader.jsx / .css       # INITIALIZING sequence
+│   ├── HUD.jsx / .css          # Persistent corner overlays
+│   ├── Navbar.jsx / .css       # Navigation
+│   ├── Hero.jsx / .css         # Landing with typewriter + dossier card
+│   ├── Projects.jsx / .css     # Horizontal EVIDENCE BOARD
+│   ├── Profile.jsx / .css      # SUBJECT PROFILE case file
+│   ├── Contact.jsx / .css      # Terminal contact form
+│   └── Footer.jsx / .css       # Footer
+├── App.jsx
+├── main.jsx
+└── index.css                   # Global styles, scanlines, CRT, glitch
 ```
 
-## Built With
-
-- **React 18** — UI framework
-- **Vite 5** — Build tooling
-- **Vanilla CSS** — Custom styles with CSS variables
-- **Google Fonts** — Syne + Space Mono
-
-## Getting Started
+## GETTING STARTED
 
 ```bash
 git clone https://github.com/uttam2811/Port-folio.git
@@ -53,15 +51,15 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173 in your browser.
+Open http://localhost:5173
 
-## Deploy on Vercel
+## DEPLOY ON VERCEL
 
 1. Go to vercel.com → New Project
 2. Import uttam2811/Port-folio
 3. Framework preset: Vite
-4. Click Deploy
+4. Deploy → live at uttam2811.vercel.app
 
-## Contact
+## CONTACT
 
-Uttam M — uttamkrishnan3578@gmail.com
+uttamkrishnan3578@gmail.com
