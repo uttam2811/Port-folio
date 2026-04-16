@@ -1,129 +1,123 @@
 import { useEffect, useRef } from 'react'
 import './Profile.css'
 
-const experience = [
-  {org:'BOSCH Power Solutions',    period:'Jun – Jul 2024', role:'FCM Trainee · Internship',                   loc:'Gangaikondan'},
-  {org:'Eaton Power Quality',      period:'May 2025',       role:'Relay & Data Server Manufacturing · Intern', loc:'Pondicherry'},
-  {org:'L&T EduTech',              period:'Jun 2025',       role:'Training Program · Internship',              loc:'Chennai'},
+const exp  = [
+  {org:'BOSCH Power Solutions',      period:'Jun–Jul 2024', role:'FCM Trainee · Internship',                   loc:'Gangaikondan, TN'},
+  {org:'Eaton Power Quality Pvt Ltd',period:'May 2025',     role:'Relay & Data Server Manufacturing · Intern', loc:'Pondicherry'},
+  {org:'L&T EduTech',                period:'Jun 2025',     role:'Training Program · Internship',              loc:'Chennai'},
 ]
-const education = [
-  {org:'ASE, Coimbatore',          period:'2022 – 2026', degree:'B.Tech · EEE',       grade:'CGPA 6.39/10'},
-  {org:'Pushpalata Vidya Mandir',  period:'2020 – 2022', degree:'Class XII · CBSE',   grade:'76.8%'},
-  {org:"St. Antony's Public School",period:'2018 – 2020',degree:'Class X · CBSE',    grade:'77.6%'},
+const edu  = [
+  {org:'ASE, Coimbatore',             period:'2022–2026', degree:'B.Tech · EEE',     grade:'CGPA 6.39/10'},
+  {org:'Pushpalata Vidya Mandir',     period:'2020–2022', degree:'Class XII · CBSE', grade:'76.8%'},
+  {org:"St. Antony's Public School",  period:'2018–2020', degree:'Class X · CBSE',   grade:'77.6%'},
 ]
-const hard  = ['Python','Java','MATLAB','Simulink','ETAP','ANSYS','Tableau','Embedded Systems']
-const soft  = ['Problem Solving','Critical Thinking','Curiosity','Collaboration','Adaptability']
+const hard = ['Python','Java','MATLAB','Simulink','ETAP','ANSYS','Tableau','Embedded Systems']
+const soft = ['Problem Solving','Critical Thinking','Curiosity','Collaboration','Adaptability','Autonomy']
 const certs = [
-  {name:'Programming for Everybody (Python)',     issuer:'University of Michigan', date:'Dec 2024'},
-  {name:'Cyber Physical Systems for Industry',    issuer:'L&T EduTech',           date:'Apr 2025'},
-  {name:'Project Management Certification',       issuer:'LinkedIn Learning',      date:'Apr 2025'},
-  {name:'Generative AI: Prompt Engineering',      issuer:'IBM',                    date:'May 2025'},
-  {name:'ChatGPT: Master AI Tools Specialization',issuer:'Vanderbilt University',  date:'Jun 2025'},
-  {name:'Excel Essential Training (M365)',         issuer:'Microsoft',              date:'Jul 2025'},
+  {name:'Programming for Everybody (Python)',      issuer:'University of Michigan', date:'Dec 2024'},
+  {name:'Cyber Physical Systems for Industry',     issuer:'L&T EduTech',           date:'Apr 2025'},
+  {name:'Project Management Certification',        issuer:'LinkedIn Learning',      date:'Apr 2025'},
+  {name:'Generative AI: Prompt Engineering',       issuer:'IBM',                   date:'May 2025'},
+  {name:'ChatGPT: Master AI Tools Specialization', issuer:'Vanderbilt University',  date:'Jun 2025'},
+  {name:'Excel Essential Training (M365)',          issuer:'Microsoft',             date:'Jul 2025'},
 ]
 
-function useReveal(ref) {
+export default function Profile() {
+  const ref = useRef(null)
   useEffect(()=>{
     const els = ref.current?.querySelectorAll('.reveal')
     if(!els) return
     const obs = new IntersectionObserver(entries=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target) } })
-    },{threshold:0.12})
+      entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target)} })
+    },{threshold:0.1})
     els.forEach(el=>obs.observe(el))
-    return ()=>obs.disconnect()
-  },[ref])
-}
-
-export default function Profile() {
-  const ref = useRef(null)
-  useReveal(ref)
+    return()=>obs.disconnect()
+  },[])
 
   return (
     <section id="profile" className="profile section-pad" ref={ref}>
-      <div className="sec-header reveal">
-        <span className="sec-tag">CASE FILE: UM-2026 · OPEN TO WORK</span>
-        <h2 className="sec-title">Subject Profile</h2>
-        <div className="sec-line" />
-      </div>
+      <span className="sec-eyebrow reveal">CASE FILE: UM-2026 · STATUS: GRADUATING</span>
+      <h2 className="sec-title reveal">SUBJECT PROFILE</h2>
+      <div className="sec-rule reveal"/>
 
-      <div className="profile-grid">
-        {/* Identity */}
+      <div className="prof-grid">
+        {/* ── IDENTITY CARD ── */}
         <div className="id-card reveal">
-          <div className="id-top">
-            <div className="id-hex">
-              <span>UM</span>
-            </div>
-            <div className="id-badge">OPEN TO WORK</div>
+          <div className="id-tape">RESTRICTED_ACCESS</div>
+          <div className="id-avatar-wrap">
+            <div className="id-hex"><span>UM</span></div>
+            <div className="id-rec-tag"><span className="blink" style={{color:'var(--red)'}}>●</span> REC_ACTIVE</div>
           </div>
+          <div className="id-face-line">ISO_FACE_ID: 99.9%</div>
           {[
-            ['CLASS',    'EEE Engineer'],
-            ['LEVEL',    'B.Tech 2026'],
-            ['LANG 1',   'Tamil — Native'],
-            ['LANG 2',   'English — Professional'],
-            ['LANG 3',   'Hindi — Limited'],
-            ['LOCATION', 'Tirunelveli, TN'],
+            ['CLASS',    'DEV_EEE'],
+            ['XP_LEVEL', 'B.TECH_DEGREE'],
+            ['LANG_1',   'Tamil [Native]'],
+            ['LANG_2',   'English [Pro]'],
+            ['LANG_3',   'Hindi [Limited]'],
           ].map(([k,v])=>(
             <div className="id-row" key={k}>
-              <span className="id-key">{k}</span>
-              <span className="id-val">{v}</span>
+              <span className="id-k">{k}</span>
+              <span className="id-v">{v}</span>
             </div>
           ))}
+          <div className="id-alert">
+            <span className="blink" style={{color:'var(--green)'}}>●</span>
+            SYSTEM_ALERT — OPEN TO WORK
+          </div>
           <p className="id-bio">
-            Electrical engineer obsessed with power systems simulation and real-world
-            energy solutions. I translate complex MATLAB models into actionable insights.
+            Electrical engineer obsessed with power systems and real-world simulation.
+            I build MATLAB models, analyze power grids, and bridge theory with practice.
           </p>
         </div>
 
-        {/* Experience + Education */}
-        <div className="right-col">
+        {/* ── FIELD LOGS ── */}
+        <div className="field-logs">
           <div className="reveal">
-            <div className="dp-label">Field Operations — Experience</div>
-            {experience.map((e,i)=>(
-              <div className="timeline-item" key={i}>
-                <div className="ti-dot" />
-                <div className="ti-content">
-                  <div className="ti-org">{e.org}</div>
-                  <div className="ti-role">{e.role}</div>
-                  <div className="ti-meta">{e.period} · {e.loc}</div>
-                </div>
+            <div className="log-heading">// FIELD_OPERATIONS [EXPÉRIENCE]</div>
+            {exp.map((e,i)=>(
+              <div className="log-item" key={i}>
+                <div className="log-period">[{e.period}] · {e.loc}</div>
+                <div className="log-org">{e.org}</div>
+                <div className="log-role">{e.role}</div>
               </div>
             ))}
           </div>
-          <div className="reveal" style={{marginTop:'40px'}}>
-            <div className="dp-label">Academic Log — Education</div>
-            {education.map((e,i)=>(
-              <div className="timeline-item" key={i}>
-                <div className="ti-dot" />
-                <div className="ti-content">
-                  <div className="ti-org">{e.org}</div>
-                  <div className="ti-role">{e.degree}</div>
-                  <div className="ti-meta">{e.period} · <span style={{color:'var(--gold3)'}}>{e.grade}</span></div>
-                </div>
+          <div className="reveal" style={{marginTop:40}}>
+            <div className="log-heading">// ACADEMIC_LOG [DIPLÔMES]</div>
+            {edu.map((e,i)=>(
+              <div className="log-item" key={i}>
+                <div className="log-period">[{e.period}]</div>
+                <div className="log-org">{e.org}</div>
+                <div className="log-role">{e.degree} — <span style={{color:'var(--green)'}}>{e.grade}</span></div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Skills */}
-      <div className="skills-row reveal">
-        <div className="skills-col">
-          <div className="dp-label">Technical Skills</div>
-          <div className="tags">{hard.map(s=><span key={s}>{s}</span>)}</div>
-        </div>
-        <div className="skills-col">
-          <div className="dp-label">Soft Skills</div>
-          <div className="tags soft">{soft.map(s=><span key={s}>{s}</span>)}</div>
+      {/* ── SKILLS ── */}
+      <div className="skills-wrap reveal">
+        <div className="log-heading">EQUIPMENT_INVENTORY</div>
+        <div className="skills-grid">
+          <div>
+            <div className="sk-label">HARD SKILLS</div>
+            <div className="sk-tags">{hard.map(s=><span key={s}>{s}</span>)}</div>
+          </div>
+          <div>
+            <div className="sk-label">SOFT SKILLS</div>
+            <div className="sk-tags soft">{soft.map(s=><span key={s}>{s}</span>)}</div>
+          </div>
         </div>
       </div>
 
-      {/* Certifications */}
-      <div className="certs-section reveal">
-        <div className="dp-label">Certifications</div>
+      {/* ── CERTS ── */}
+      <div className="certs-wrap reveal">
+        <div className="log-heading">// CERTIFICATIONS_LOG</div>
         <div className="certs-grid">
           {certs.map((c,i)=>(
-            <div className="cert-row" key={i}>
-              <span className="cert-n">{String(i+1).padStart(2,'0')}</span>
+            <div className="cert-item" key={i}>
+              <div className="cert-n">{String(i+1).padStart(2,'0')}</div>
               <div>
                 <div className="cert-name">{c.name}</div>
                 <div className="cert-meta">{c.issuer} · {c.date}</div>

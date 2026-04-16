@@ -1,103 +1,84 @@
 import { useEffect, useState } from 'react'
 import './Hero.css'
 
-function TypeWriter({ texts, speed=60, pause=1800 }) {
-  const [display, setDisplay] = useState('')
-  const [tIdx, setTIdx]       = useState(0)
-  const [cIdx, setCIdx]       = useState(0)
-  const [deleting, setDeleting] = useState(false)
-
-  useEffect(()=>{
-    const cur = texts[tIdx]
-    let timeout
-    if (!deleting && cIdx <= cur.length) {
-      timeout = setTimeout(()=>{ setDisplay(cur.slice(0,cIdx)); setCIdx(c=>c+1) }, speed)
-    } else if (!deleting && cIdx > cur.length) {
-      timeout = setTimeout(()=>setDeleting(true), pause)
-    } else if (deleting && cIdx > 0) {
-      timeout = setTimeout(()=>{ setCIdx(c=>c-1); setDisplay(cur.slice(0,cIdx-1)) }, speed/2)
-    } else {
-      setDeleting(false)
-      setTIdx(i=>(i+1)%texts.length)
-    }
-    return ()=>clearTimeout(timeout)
-  },[cIdx,deleting,tIdx,texts,speed,pause])
-
-  return <span>{display}<span className="tw-cursor">|</span></span>
-}
-
 export default function Hero() {
-  const [visible, setVisible] = useState(false)
-  useEffect(()=>{ const t=setTimeout(()=>setVisible(true),100); return ()=>clearTimeout(t) },[])
+  const [vis, setVis] = useState(false)
+  useEffect(()=>{ const t=setTimeout(()=>setVis(true),80); return()=>clearTimeout(t) },[])
 
   return (
-    <section id="hero" className="hero section-pad">
-      <div className={`hero-inner ${visible?'hero-visible':''}`}>
-        <div className="hero-left">
-          <p className="hero-case gpu">CASE_FILE: UM-2026</p>
+    <section id="hero" className={`hero section-pad ${vis?'hero-vis':''}`}>
+      {/* Full-width scanline overlay specific to hero */}
+      <div className="hero-noise" />
 
-          <h1 className="hero-name gpu">
-            <span className="hero-name-line">UTTAM</span>
-            <span className="hero-name-line accent">M.</span>
+      <div className="hero-top-bar">
+        <span>SECTOR: EEE_ENGINEERING</span>
+        <span><span className="blink" style={{color:'var(--red)'}}>●</span> SCANNING: ACTIVE</span>
+      </div>
+
+      <div className="hero-grid">
+        {/* LEFT */}
+        <div className="hero-left">
+          <p className="hero-case">TOP SECRET // CASE #2026</p>
+
+          <h1 className="hero-name">
+            <span className="hn-uttam">UTTAM</span>
+            <span className="hn-m">M.</span>
           </h1>
 
-          <div className="hero-sub gpu">
-            <TypeWriter
-              texts={[
-                'Electrical Engineer.',
-                'Power Systems Analyst.',
-                'MATLAB Simulation Expert.',
-                'Sustainable Energy Advocate.',
-              ]}
-              speed={55}
-              pause={2000}
-            />
+          <div className="hero-roles">
+            <span className="role-tag">Electrical Engineer</span>
+            <span className="role-sep">·</span>
+            <span className="role-tag">Power Systems</span>
+            <span className="role-sep">·</span>
+            <span className="role-tag">MATLAB Specialist</span>
           </div>
 
-          <p className="hero-desc gpu">
+          <p className="hero-desc">
             B.Tech EEE · Amrita Vishwa Vidyapeetham, Coimbatore<br/>
-            Interned at BOSCH · Eaton · L&T EduTech<br/>
-            Graduating 2026 — Open to opportunities.
+            Interned @ BOSCH · Eaton Power Quality · L&amp;T EduTech<br/>
+            Graduating 2026 — Open to full-time &amp; internship roles.
           </p>
 
-          <div className="hero-actions gpu">
-            <a href="#projects" className="btn-primary">View Evidence</a>
+          <div className="hero-ctas">
+            <a href="#projects" className="btn-primary">▷ View Evidence</a>
             <a href="#contact"  className="btn-ghost">Initiate Contact</a>
           </div>
         </div>
 
-        <div className="hero-right gpu">
-          <div className="dossier-card">
-            <div className="dc-tape">CLASSIFIED · CASE #2026</div>
-            <div className="dc-rows">
+        {/* RIGHT — dossier */}
+        <div className="hero-right">
+          <div className="dossier">
+            <div className="dos-header">
+              <span><span className="blink" style={{color:'var(--red)'}}>●</span> LIVE FEED</span>
+              <span>ANALYSER_ACTIVE</span>
+            </div>
+            <div className="dos-rows">
               {[
-                ['IDENTITY',  'Uttam M'],
-                ['STATUS',    'Graduating 2026'],
+                ['NAME',      'Uttam M'],
+                ['STATUS',    'GRADUATING 2026',true],
                 ['CGPA',      '6.39 / 10'],
-                ['FIELD',     'Electrical & Electronics'],
                 ['MISSIONS',  '3 Internships'],
                 ['CERTS',     '7+ Certifications'],
-                ['ORIGIN',    'Tirunelveli, Tamil Nadu'],
-                ['CLEARANCE', 'Open to Work'],
-              ].map(([k,v])=>(
-                <div className="dc-row" key={k}>
-                  <span className="dc-key">{k}</span>
-                  <span className="dc-val">{v}</span>
+                ['FIELD',     'EEE · Power Systems'],
+                ['LOCATION',  'Tirunelveli, TN'],
+                ['CLEARANCE', 'OPEN TO WORK',true],
+              ].map(([k,v,hi])=>(
+                <div className="dos-row" key={k}>
+                  <span className="dos-key">{k}</span>
+                  <span className={`dos-val${hi?' dos-hi':''}`}>{v}</span>
                 </div>
               ))}
             </div>
-            <div className="dc-footer">
+            <div className="dos-footer">
               <span>SYS. DIAGNOSTIC</span>
-              <span className="dc-stable">● STABLE</span>
+              <span style={{color:'var(--green)'}}>STABLE</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="hero-scroll">
-        <div className="scroll-pill">
-          <div className="scroll-dot" />
-        </div>
+      <div className="hero-scroll-ind">
+        <div className="hsi-line"/><span>SCROLL</span><div className="hsi-line"/>
       </div>
     </section>
   )

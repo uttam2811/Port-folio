@@ -3,73 +3,66 @@ import './Contact.css'
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
-
-  const handleSubmit = e => {
+  const submit = e => {
     e.preventDefault()
-    const f = e.target
-    const s = encodeURIComponent('Portfolio Inquiry')
-    const b = encodeURIComponent(`Name: ${f.name.value}\n\nMessage:\n${f.message.value}`)
-    window.location.href = `mailto:uttamkrishnan3578@gmail.com?subject=${s}&body=${b}`
-    setSent(true); setTimeout(()=>setSent(false),5000)
+    const f=e.target
+    window.location.href=`mailto:uttamkrishnan3578@gmail.com?subject=${encodeURIComponent('Portfolio Inquiry')}&body=${encodeURIComponent(`Name: ${f.name.value}\n\nMessage:\n${f.message.value}`)}`
+    setSent(true); setTimeout(()=>setSent(false),6000)
   }
-
   return (
     <section id="contact" className="contact section-pad">
-      <div className="sec-header">
-        <span className="sec-tag">INITIATE PROTOCOL · START TRANSMISSION</span>
-        <h2 className="sec-title">Let's Collaborate</h2>
-        <div className="sec-line" />
-      </div>
+      <span className="sec-eyebrow">INITIATE PROTOCOL // START TRANSMISSION //</span>
+      <h2 className="sec-title">CHANNEL OPEN</h2>
+      <div className="sec-rule"/>
 
-      <div className="contact-grid">
-        <div className="contact-info">
-          <p className="contact-intro">
-            Open to internship opportunities, full-time engineering roles, and
-            research collaborations in power systems, sustainable energy, and
-            simulation-driven design.
-          </p>
-          <div className="contact-details">
+      <div className="con-grid">
+        <div className="con-left">
+          <p className="con-tagline">Et si on collaborait ensemble ?</p>
+          <p className="con-sub">Open to full-time roles, internships, and engineering collaborations across power systems, sustainable energy, and simulation.</p>
+          <div className="con-details">
             {[
-              ['Signal',   '● Online',                    true],
-              ['Email',    'uttamkrishnan3578@gmail.com', false],
-              ['Phone',    '+91 63833 33434',             false],
-              ['Location', 'Tirunelveli, Tamil Nadu',     false],
-              ['GitHub',   'github.com/uttam2811',        false],
-            ].map(([k,v,gold])=>(
-              <div className="cd-row" key={k}>
-                <span className="cd-key">{k}</span>
-                <span className={`cd-val ${gold?'cd-gold':''}`}>{v}</span>
+              ['SIGNAL',   '● ONLINE',                         true],
+              ['EMAIL',    'uttamkrishnan3578@gmail.com',       false],
+              ['PHONE',    '+91 63833 33434',                   false],
+              ['LOCATION', 'Tirunelveli, Tamil Nadu',           false],
+              ['GITHUB',   'github.com/uttam2811',              false],
+              ['LINKEDIN', 'linkedin.com/in/uttam2811',         false],
+            ].map(([k,v,hi])=>(
+              <div className="con-row" key={k}>
+                <span className="con-k">{k}</span>
+                <span className={`con-v${hi?' con-hi':''}`}>{v}</span>
               </div>
             ))}
           </div>
         </div>
-
-        <div className="contact-form-wrap">
-          <div className="cf-header">
-            <span>Secure Transmission</span>
-            <span style={{color:'var(--gold3)'}}>AES-256</span>
-          </div>
-          {sent ? (
-            <div className="cf-sent">
-              <p>Transmission sent.</p>
-              <p className="cf-sub">Awaiting response...</p>
+        <div className="con-right">
+          <div className="con-form-wrap">
+            <div className="cf-hdr">
+              <span><span className="blink" style={{color:'var(--green)'}}>●</span> SECURE_TRANSMISSION</span>
+              <span>AES-256 ENCRYPTED</span>
             </div>
-          ) : (
-            <form className="cf-form" onSubmit={handleSubmit}>
-              <div className="cf-field">
-                <label>Name</label>
-                <input type="text" name="name" required placeholder="Your full name" autoComplete="off" />
+            {sent ? (
+              <div className="cf-sent">
+                <p>&gt; TRANSMISSION_SENT</p>
+                <p className="blink">&gt; AWAITING RESPONSE...</p>
               </div>
-              <div className="cf-field">
-                <label>Message</label>
-                <textarea name="message" rows={5} required placeholder="Describe your opportunity or collaboration idea..." />
-              </div>
-              <button type="submit" className="btn-primary" style={{width:'100%',textAlign:'center'}}>
-                Initiate Contact →
-              </button>
-            </form>
-          )}
-          <div className="cf-footer">Ligne sécurisée établie · © 2026 Uttam M</div>
+            ):(
+              <form className="cf-form" onSubmit={submit}>
+                <div className="cf-field">
+                  <label>&gt; CALLSIGN (NAME):</label>
+                  <input type="text" name="name" required placeholder="YOUR_NAME" autoComplete="off"/>
+                </div>
+                <div className="cf-field">
+                  <label>&gt; MESSAGE_BODY:</label>
+                  <textarea name="message" rows={5} required placeholder="ENTER_MESSAGE..."/>
+                </div>
+                <button type="submit" className="btn-primary" style={{width:'100%',textAlign:'center'}}>
+                  ▷ INITIATE CONTACT →
+                </button>
+              </form>
+            )}
+            <div className="cf-ftr">LIGNE SÉCURISÉE ÉTABLIE · © 2026 UTTAM M</div>
+          </div>
         </div>
       </div>
     </section>
