@@ -1,111 +1,129 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './Loader.css'
 
-const lines = [
-  'INITIALIZING SYSTEM...',
-  'SAT_LINK: SEARCHING...',
-  'SIGNAL TRACING...',
-  'IDENTITY VERIFIED: UTTAM_M',
-  'CLEARANCE: LEVEL 5',
-  'LOADING CASE FILES...',
-  'SYSTEM READY.',
+const GREETINGS = [
+  { word: 'Hello',     lang: 'English'  },
+  { word: 'Hallo',     lang: 'German'   },
+  { word: 'Salut',     lang: 'French'   },
+  { word: 'வணக்கம்',  lang: 'Tamil'    },
+  { word: 'नमस्ते',   lang: 'Hindi'    },
+  { word: 'Ciao',      lang: 'Italian'  },
 ]
 
+// Phase 1: loading (0→100%), Phase 2: greeting cycle, Phase 3: fade out
 export default function Loader({ onDone }) {
-  const [progress, setProgress]   = useState(0)
-  const [lineIdx, setLineIdx]     = useState(0)
-  const [visible, setVisible]     = useState(true)
-  const [typed, setTyped]         = useState('')
-  const [charIdx, setCharIdx]     = useState(0)
+  const [phase, setPhase]       = useState('loading') // loading | greeting | out
+  const [progress, setProgress] = useState(0)
+  const [greetIdx, setGreetIdx] = useState(0)
+  const [greetVisible, setGreetVisible] = useState(true)
+  const raf = useRef(null)
+  const start = useRef(Date.now())
 
+  // Smooth GPU-driven progress bar (easeOutExpo)
   useEffect(() => {
-    const prog = setInterval(() => {
-      setProgress(p => {
-        if (p >= 100) { clearInterval(prog); return 100 }
-        return p + 1
-      })
-    }, 28)
-    return () => clearInterval(prog)
-  }, [])
+    if (phase !== 'loading') return
+    const DURATION = 2200
+    const tick = () => {
+      const elapsed = Date.now() - start.current
+      const t = Math.min(elapsed / DURATION, 1)
+      const eased = 1 - Math.pow(1 - t, 4)
+      setProgress(Math.floor(eased * 100))
+      if (t < 1) { raf.current = requestAnimationFrame(tick) }
+      else {
+        setProgress(100)
+        setTimeout(() => setPhase('greeting'), 300)
+      }
+    }
+    raf.current = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf.current)
+  }, [phase])
 
+  // Greeting cycle
   useEffect(() => {
-    if (progress === 100) {
+    if (phase !== 'greeting') return
+    let idx = 0
+    const SHOW = 420
+    const FADE = 220
+    const cycle = () => {
+      setGreetIdx(idx)
+      setGreetVisible(true)
       setTimeout(() => {
-        setVisible(false)
-        setTimeout(onDone, 600)
-      }, 600)
+        setGreetVisible(false)
+        setTimeout(() => {
+          idx++
+          if (idx < GREETINGS.length) cycle()
+          else {
+            setTimeout(() => setPhase('out'), 200)
+          }
+        }, FADE)
+      }, SHOW)
     }
-  }, [progress, onDone])
+    cycle()
+  }, [phase])
 
-  // Typing effect for current line
+  // Unmount after fade
   useEffect(() => {
-    if (lineIdx >= lines.length) return
-    const cur = lines[lineIdx]
-    if (charIdx < cur.length) {
-      const t = setTimeout(() => {
-        setTyped(cur.slice(0, charIdx + 1))
-        setCharIdx(c => c + 1)
-      }, 40)
-      return () => clearTimeout(t)
-    } else {
-      const t = setTimeout(() => {
-        setLineIdx(l => l + 1)
-        setCharIdx(0)
-        setTyped('')
-      }, 300)
-      return () => clearTimeout(t)
+    if (phase === 'out') {
+      setTimeout(onDone, 700)
     }
-  }, [lineIdx, charIdx])
-
-  if (!visible) return null
+  }, [phase, onDone])
 
   return (
-    <div className={`loader ${progress === 100 ? 'fade-out' : ''}`}>
-      <div className="loader-corner tl">CAM_04 [REC]</div>
-      <div className="loader-corner tr"><span className="blink">●</span> SIGNAL_STRONG</div>
-      <div className="loader-corner bl">00:00:00:00</div>
-      <div className="loader-corner br">ISO 800</div>
+    <div className={`loader gpu ${phase === 'out' ? 'loader-out' : ''}`}>
+      {/* Corner decorations */}
+      <div className="ldr-corner ldr-tl" />
+      <div className="ldr-corner ldr-tr" />
+      <div className="ldr-corner ldr-bl" />
+      <div className="ldr-corner ldr-br" />
 
-      <div className="loader-center">
-        <div className="loader-logo">
-          <svg viewBox="0 0 100 100" width="90" height="90">
-            <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
-              fill="none" stroke="#00ff41" strokeWidth="1.5"
-              strokeDasharray="300" strokeDashoffset="300">
-              <animate attributeName="strokeDashoffset" from="300" to="0" dur="1.2s" fill="freeze" begin="0.2s"/>
+      {/* Loading phase */}
+      <div className={`ldr-loading ${phase !== 'loading' ? 'phase-hide' : ''}`}>
+        <div className="ldr-logo">
+          <svg viewBox="0 0 100 100" width="72" height="72">
+            <polygon points="50,6 94,28 94,72 50,94 6,72 6,28"
+              fill="none" stroke="url(#goldGrad)" strokeWidth="1.5"
+              strokeDasharray="260" strokeDashoffset="260"
+              style={{animation:'drawHex 1.4s var(--ease) forwards 0.2s'}}>
             </polygon>
-            <text x="50" y="58" textAnchor="middle"
-              fill="#00ff41" fontFamily="Orbitron,monospace" fontSize="22" fontWeight="700"
-              opacity="0">
+            <defs>
+              <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#e8c97a"/>
+                <stop offset="100%" stopColor="#a07830"/>
+              </linearGradient>
+            </defs>
+            <text x="50" y="60" textAnchor="middle"
+              fill="url(#goldGrad)" fontFamily="Cormorant Garamond,serif"
+              fontSize="28" fontWeight="600" letterSpacing="1"
+              style={{animation:'fadeIn 0.5s ease forwards 1.2s', opacity:0}}>
               UM
-              <animate attributeName="opacity" from="0" to="1" dur="0.4s" fill="freeze" begin="1.1s"/>
             </text>
           </svg>
         </div>
 
-        <div className="loader-terminal">
-          {lines.slice(0, lineIdx).map((l, i) => (
-            <div key={i} className="terminal-line done">
-              <span className="prompt">{'> '}</span>{l}
-            </div>
-          ))}
-          {lineIdx < lines.length && (
-            <div className="terminal-line">
-              <span className="prompt">{'> '}</span>{typed}<span className="blink">_</span>
-            </div>
-          )}
+        <div className="ldr-bar-wrap">
+          <div className="ldr-bar">
+            <div
+              className="ldr-fill gpu"
+              style={{ transform:`scaleX(${progress/100})` }}
+            />
+          </div>
+          <div className="ldr-pct">{String(progress).padStart(3,'0')}</div>
         </div>
 
-        <div className="loader-bar-wrap">
-          <div className="loader-bar">
-            <div className="loader-fill" style={{ width: `${progress}%` }} />
-          </div>
-          <div className="loader-pct">{String(progress).padStart(2,'0')}%</div>
-        </div>
+        <div className="ldr-label">INITIALIZING</div>
       </div>
 
-      <div className="loader-freq">FREQ: 12.4 Hz</div>
-      <div className="loader-encrypted">ENCRYPTED</div>
+      {/* Greeting phase */}
+      <div className={`ldr-greeting ${phase === 'greeting' ? 'phase-show' : ''}`}>
+        <div
+          className={`greet-word gpu ${greetVisible ? 'greet-in' : 'greet-out'}`}
+        >
+          {GREETINGS[greetIdx].word}
+        </div>
+        <div className={`greet-lang gpu ${greetVisible ? 'greet-in' : 'greet-out'}`}>
+          {GREETINGS[greetIdx].lang}
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,23 +1,27 @@
 .c-dot {
-  width:10px; height:10px;
-  background:var(--green);
+  width:6px; height:6px;
+  background:var(--gold);
   border-radius:50%;
   position:fixed; top:0; left:0;
-  pointer-events:none; z-index:9995;
-  box-shadow:0 0 8px var(--green);
+  pointer-events:none; z-index:9998;
+  will-change:transform;
+  transform:translateZ(0);
 }
 .c-ring {
-  width:44px; height:44px;
-  border:1px solid var(--green);
+  width:36px; height:36px;
+  border:1px solid var(--gold);
   border-radius:50%;
   position:fixed; top:0; left:0;
-  pointer-events:none; z-index:9994;
-  opacity:0.5;
-  transition:width .2s,height .2s,border-color .2s,background .2s;
+  pointer-events:none; z-index:9997;
+  opacity:0.35;
+  will-change:transform;
+  transform:translateZ(0);
+  transition:width .25s var(--ease),height .25s var(--ease),
+             border-color .25s,background .25s,opacity .25s;
 }
 .c-ring.big {
-  width:64px; height:64px;
-  border-color:var(--green2);
-  background:rgba(0,255,65,0.06);
-  opacity:0.4;
+  width:56px; height:56px;
+  border-color:var(--gold2);
+  background:rgba(201,168,76,0.06);
+  opacity:0.25;
 }

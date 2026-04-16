@@ -1,132 +1,111 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import './Projects.css'
 
 const projects = [
   {
-    num: '#01',
-    type: 'MATLAB SIMULATION',
-    title: 'Temperature Characteristics of a Lithium-Ion Battery',
-    year: 2024,
-    context: 'Academic',
-    duration: '3 months',
-    stack: ['MATLAB','Li-ion','Thermal Analysis'],
-    desc: 'Characterized battery performance and safety across working temperatures. Studied how heat affects capacity, lifespan, and internal resistance — critical for EV battery design.',
-    status: 'DECLASSIFIED',
+    num:'01', type:'MATLAB · THERMAL ANALYSIS',
+    title:'Temperature Characteristics of a Lithium-Ion Battery',
+    year:2024, duration:'3 months',
+    stack:['MATLAB','Li-ion Batteries','Thermal Analysis','EV Systems'],
+    desc:'Characterized lithium-ion battery performance and safety across working temperatures. Investigated how thermal conditions affect capacity, lifespan, and internal resistance — foundational for EV battery management system design.',
   },
   {
-    num: '#02',
-    type: 'POWER SYSTEMS',
-    title: 'Harmonic State Space Modelling of Wireless Power Transfer',
-    year: 2024,
-    context: 'Academic',
-    duration: '2 months',
-    stack: ['MATLAB','WPT Systems','HSS Model'],
-    desc: 'Validated the HSS model accuracy in analyzing WPT system dynamics and harmonic interactions. Demonstrated superiority over traditional modelling methods.',
-    status: 'DECLASSIFIED',
+    num:'02', type:'MATLAB · POWER SYSTEMS',
+    title:'Harmonic State Space Modelling of Wireless Power Transfer',
+    year:2024, duration:'2 months',
+    stack:['MATLAB','WPT Systems','HSS Modelling','Harmonic Analysis'],
+    desc:'Validated the Harmonic State-Space model accuracy in analyzing WPT system dynamics and harmonic interactions. Demonstrated clear advantages over traditional modelling methods for dynamic power systems.',
   },
   {
-    num: '#03',
-    type: 'GRID ANALYSIS',
-    title: 'Load Flow Analysis of IEEE–9 BUS System Using NR Method',
-    year: 2024,
-    context: 'Academic',
-    duration: '2 months',
-    stack: ['MATLAB','Simulink','Newton-Raphson'],
-    desc: 'Validated Newton-Raphson load flow for a 9-bus power system. Cross-compared MATLAB code and Simulink results to evaluate grid stability under varying load conditions.',
-    status: 'DECLASSIFIED',
+    num:'03', type:'MATLAB · GRID ANALYSIS',
+    title:'Load Flow Analysis of IEEE–9 BUS System Using NR Method',
+    year:2024, duration:'2 months',
+    stack:['MATLAB','Simulink','Newton-Raphson','Power Flow'],
+    desc:'Validated Newton-Raphson load flow for a 9-bus power system. Cross-compared MATLAB code with Simulink results to rigorously evaluate grid stability and performance under varying load conditions.',
   },
 ]
 
 export default function Projects() {
   const [active, setActive] = useState(null)
   const sliderRef = useRef(null)
+  const drag = useRef({down:false,startX:0,sl:0})
 
-  const drag = useRef({ down:false, startX:0, scrollLeft:0 })
-  const onMouseDown  = e => { drag.current = {down:true, startX:e.pageX - sliderRef.current.offsetLeft, scrollLeft:sliderRef.current.scrollLeft}; sliderRef.current.style.cursor='grabbing' }
-  const onMouseUp    = () => { drag.current.down=false; sliderRef.current.style.cursor='grab' }
-  const onMouseMove  = e => {
-    if (!drag.current.down) return
-    e.preventDefault()
-    const x = e.pageX - sliderRef.current.offsetLeft
-    sliderRef.current.scrollLeft = drag.current.scrollLeft - (x - drag.current.startX) * 1.5
+  const onDown = e => {
+    drag.current = {down:true, startX:e.pageX - sliderRef.current.offsetLeft, sl:sliderRef.current.scrollLeft}
+    sliderRef.current.style.cursor='grabbing'
   }
+  const onUp   = () => { drag.current.down=false; if(sliderRef.current) sliderRef.current.style.cursor='grab' }
+  const onMove = e => {
+    if(!drag.current.down) return; e.preventDefault()
+    const x = e.pageX - sliderRef.current.offsetLeft
+    sliderRef.current.scrollLeft = drag.current.sl - (x - drag.current.startX)*1.4
+  }
+
+  // Close on Escape
+  useEffect(()=>{
+    const fn = e => { if(e.key==='Escape') setActive(null) }
+    window.addEventListener('keydown',fn)
+    return ()=>window.removeEventListener('keydown',fn)
+  },[])
 
   return (
     <section id="projects" className="projects section-pad">
-      <div className="projects-header">
-        <div>
-          <p className="section-tag">SECTOR: ENGINEERING_PROJECTS</p>
-          <h2 className="section-title">EVIDENCE BOARD</h2>
-        </div>
-        <div className="proj-meta">
-          <span>SCANNING: ACTIVE</span>
-          <span className="blink">●</span>
-        </div>
+      <div className="sec-header">
+        <span className="sec-tag">SECTOR: ENGINEERING_PROJECTS</span>
+        <h2 className="sec-title">Evidence Board</h2>
+        <div className="sec-line" />
       </div>
 
-      <p className="proj-drag-hint">← DRAG TO INVESTIGATE →</p>
+      <p className="drag-hint">← drag to explore →</p>
 
-      {/* Horizontal scroll slider */}
-      <div
-        className="evidence-slider"
+      <div className="ev-slider gpu"
         ref={sliderRef}
-        onMouseDown={onMouseDown}
-        onMouseLeave={onMouseUp}
-        onMouseUp={onMouseUp}
-        onMouseMove={onMouseMove}
+        onMouseDown={onDown} onMouseLeave={onUp}
+        onMouseUp={onUp}    onMouseMove={onMove}
       >
-        {projects.map((p, i) => (
-          <div
-            key={i}
-            className="evidence-item"
-            onClick={() => setActive(p)}
-            data-hover
-          >
-            <div className="ev-item-header">
-              <span className="ev-num">PREUVE {p.num}</span>
+        {projects.map((p,i)=>(
+          <div className="ev-card" key={i} onClick={()=>setActive(p)} data-hover>
+            <div className="ev-card-header">
+              <span className="ev-num">{p.num}</span>
               <span className="ev-type">{p.type}</span>
             </div>
-            <div className="ev-item-img">
-              <div className="ev-img-placeholder">
-                <span>{p.num}</span>
-                <div className="scan-line-anim" />
+            <div className="ev-card-vis">
+              <div className="ev-vis-inner">
+                <span className="ev-vis-num">{p.num}</span>
+                <div className="ev-scan" />
               </div>
             </div>
-            <div className="ev-item-body">
+            <div className="ev-card-body">
               <h3>{p.title}</h3>
-              <div className="ev-tags">
-                {p.stack.map(s => <span key={s}>{s}</span>)}
+              <div className="ev-stack">
+                {p.stack.slice(0,3).map(s=><span key={s}>{s}</span>)}
               </div>
-              <p className="ev-decrypt">[ CLICK TO DECRYPT ]</p>
+              <p className="ev-cta">Click to decrypt →</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="ev-count">{projects.length.toString().padStart(2,'0')} FILES</div>
+      <div className="ev-total">{String(projects.length).padStart(2,'0')} files classified</div>
 
       {/* Modal */}
       {active && (
-        <div className="ev-modal-bg" onClick={() => setActive(null)}>
-          <div className="ev-modal" onClick={e => e.stopPropagation()}>
-            <div className="modal-header">
-              <span>TOP SECRET // DECRYPTED</span>
-              <button onClick={() => setActive(null)}>CLOSE [ESC]</button>
+        <div className="modal-bg" onClick={()=>setActive(null)}>
+          <div className="modal-card" onClick={e=>e.stopPropagation()}>
+            <div className="modal-top">
+              <span className="modal-classified">DECLASSIFIED · CASE #{active.num}</span>
+              <button className="modal-close" onClick={()=>setActive(null)}>✕ Close</button>
             </div>
-            <div className="modal-meta">
-              <span>PREUVE {active.num}</span>
-              <span>{active.type}</span>
-              <span>YEAR {active.year}</span>
-              <span className="blink" style={{color:'var(--green)'}}>● {active.status}</span>
-            </div>
+            <div className="modal-type">{active.type}</div>
             <h2 className="modal-title">{active.title}</h2>
-            <div className="modal-details">
-              <div className="modal-row"><span>CONTEXT:</span>{active.context}</div>
-              <div className="modal-row"><span>DURATION:</span>{active.duration}</div>
-              <div className="modal-row"><span>STACK:</span>{active.stack.join(' · ')}</div>
+            <div className="modal-meta">
+              <span><span>Year</span>{active.year}</span>
+              <span><span>Duration</span>{active.duration}</span>
             </div>
             <p className="modal-desc">{active.desc}</p>
-            <div className="modal-footer">SECURE_GRID_99 // CASE CLOSED</div>
+            <div className="modal-stack">
+              {active.stack.map(s=><span key={s}>{s}</span>)}
+            </div>
           </div>
         </div>
       )}

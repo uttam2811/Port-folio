@@ -1,72 +1,103 @@
 import { useEffect, useState } from 'react'
 import './Hero.css'
 
-function TypeWriter({ text, speed = 50 }) {
-  const [out, setOut] = useState('')
-  const [i, setI] = useState(0)
-  useEffect(() => {
-    if (i >= text.length) return
-    const t = setTimeout(() => { setOut(text.slice(0,i+1)); setI(i+1) }, speed)
-    return () => clearTimeout(t)
-  }, [i, text, speed])
-  return <span>{out}<span className="blink">_</span></span>
+function TypeWriter({ texts, speed=60, pause=1800 }) {
+  const [display, setDisplay] = useState('')
+  const [tIdx, setTIdx]       = useState(0)
+  const [cIdx, setCIdx]       = useState(0)
+  const [deleting, setDeleting] = useState(false)
+
+  useEffect(()=>{
+    const cur = texts[tIdx]
+    let timeout
+    if (!deleting && cIdx <= cur.length) {
+      timeout = setTimeout(()=>{ setDisplay(cur.slice(0,cIdx)); setCIdx(c=>c+1) }, speed)
+    } else if (!deleting && cIdx > cur.length) {
+      timeout = setTimeout(()=>setDeleting(true), pause)
+    } else if (deleting && cIdx > 0) {
+      timeout = setTimeout(()=>{ setCIdx(c=>c-1); setDisplay(cur.slice(0,cIdx-1)) }, speed/2)
+    } else {
+      setDeleting(false)
+      setTIdx(i=>(i+1)%texts.length)
+    }
+    return ()=>clearTimeout(timeout)
+  },[cIdx,deleting,tIdx,texts,speed,pause])
+
+  return <span>{display}<span className="tw-cursor">|</span></span>
 }
 
 export default function Hero() {
+  const [visible, setVisible] = useState(false)
+  useEffect(()=>{ const t=setTimeout(()=>setVisible(true),100); return ()=>clearTimeout(t) },[])
+
   return (
     <section id="hero" className="hero section-pad">
-      <div className="hero-top-label">
-        <span>SECTOR: EEE_ENGINEERING</span>
-        <span className="blink">SCANNING: ACTIVE</span>
-      </div>
-
-      <div className="hero-main">
+      <div className={`hero-inner ${visible?'hero-visible':''}`}>
         <div className="hero-left">
-          <p className="hero-case">TOP SECRET // CASE #2026</p>
-          <h1 className="hero-name glitch" data-text="UTTAM M">UTTAM M</h1>
-          <div className="hero-sub">
-            <TypeWriter text="Electrical Engineer. Power Systems." speed={55} />
+          <p className="hero-case gpu">CASE_FILE: UM-2026</p>
+
+          <h1 className="hero-name gpu">
+            <span className="hero-name-line">UTTAM</span>
+            <span className="hero-name-line accent">M.</span>
+          </h1>
+
+          <div className="hero-sub gpu">
+            <TypeWriter
+              texts={[
+                'Electrical Engineer.',
+                'Power Systems Analyst.',
+                'MATLAB Simulation Expert.',
+                'Sustainable Energy Advocate.',
+              ]}
+              speed={55}
+              pause={2000}
+            />
           </div>
-          <p className="hero-desc">
-            B.Tech EEE · Amrita Vishwa Vidyapeetham · Coimbatore<br/>
-            Internship veteran · BOSCH · Eaton · L&T EduTech<br/>
-            MATLAB Simulation specialist · Energy systems researcher.
+
+          <p className="hero-desc gpu">
+            B.Tech EEE · Amrita Vishwa Vidyapeetham, Coimbatore<br/>
+            Interned at BOSCH · Eaton · L&T EduTech<br/>
+            Graduating 2026 — Open to opportunities.
           </p>
-          <div className="hero-ctas">
-            <a href="#projects" className="hud-btn">▷ VIEW EVIDENCE</a>
-            <a href="#contact" className="hud-btn outline">INITIATE CONTACT</a>
+
+          <div className="hero-actions gpu">
+            <a href="#projects" className="btn-primary">View Evidence</a>
+            <a href="#contact"  className="btn-ghost">Initiate Contact</a>
           </div>
         </div>
 
-        <div className="hero-right">
-          <div className="evidence-card">
-            <div className="ev-header">
-              <span className="ev-label">LIVE FEED</span>
-              <span className="blink" style={{color:'var(--red)'}}>● REC</span>
+        <div className="hero-right gpu">
+          <div className="dossier-card">
+            <div className="dc-tape">CLASSIFIED · CASE #2026</div>
+            <div className="dc-rows">
+              {[
+                ['IDENTITY',  'Uttam M'],
+                ['STATUS',    'Graduating 2026'],
+                ['CGPA',      '6.39 / 10'],
+                ['FIELD',     'Electrical & Electronics'],
+                ['MISSIONS',  '3 Internships'],
+                ['CERTS',     '7+ Certifications'],
+                ['ORIGIN',    'Tirunelveli, Tamil Nadu'],
+                ['CLEARANCE', 'Open to Work'],
+              ].map(([k,v])=>(
+                <div className="dc-row" key={k}>
+                  <span className="dc-key">{k}</span>
+                  <span className="dc-val">{v}</span>
+                </div>
+              ))}
             </div>
-            <div className="ev-terminal">
-              <div className="ev-line"><span className="ev-key">NAME:</span> UTTAM M</div>
-              <div className="ev-line"><span className="ev-key">STATUS:</span> <span style={{color:'var(--green)'}}>GRADUATING 2026</span></div>
-              <div className="ev-line"><span className="ev-key">CGPA:</span> 6.39/10</div>
-              <div className="ev-line"><span className="ev-key">INTERNSHIPS:</span> 3</div>
-              <div className="ev-line"><span className="ev-key">CERTS:</span> 7+</div>
-              <div className="ev-line"><span className="ev-key">PROJECTS:</span> 3 [MATLAB]</div>
-              <div className="ev-line"><span className="ev-key">LANG_1:</span> Tamil [Native]</div>
-              <div className="ev-line"><span className="ev-key">LANG_2:</span> English [Pro]</div>
-              <div className="ev-line"><span className="ev-key">CLEARANCE:</span> <span style={{color:'var(--amber)'}}>LEVEL_5</span></div>
-            </div>
-            <div className="ev-footer">
-              <span>ANALYSER_ACTIVE...</span>
-              <span>SYS. DIAGNOSTIC <span style={{color:'var(--green)'}}>STABLE</span></span>
+            <div className="dc-footer">
+              <span>SYS. DIAGNOSTIC</span>
+              <span className="dc-stable">● STABLE</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <div className="hero-scroll">
-        <span>SCROLL TO INVESTIGATE</span>
-        <div className="scroll-line" />
+        <div className="scroll-pill">
+          <div className="scroll-dot" />
+        </div>
       </div>
     </section>
   )
