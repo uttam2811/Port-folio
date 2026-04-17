@@ -1,32 +1,11 @@
-.hud {
-  position:fixed; inset:0; z-index:9988;
-  pointer-events:none;
-  font-family:var(--mono);
-  font-size:0.58rem; font-weight:300;
-  letter-spacing:0.15em;
-  color:var(--muted);
-}
-.hud-tl,.hud-tr,.hud-bl,.hud-br {
-  position:absolute;
-  display:flex; flex-direction:column; gap:5px;
-}
-.hud-tl { top:18px; left:18px; }
-.hud-tr { top:18px; right:18px; align-items:flex-end; }
-.hud-bl { bottom:18px; left:18px; }
-.hud-br { bottom:18px; right:18px; align-items:flex-end; }
-.hud-tag { opacity:0.55; }
-.hud-tag.live { color:var(--gold3); opacity:0.7; }
-
-.corner-bracket {
-  position:absolute;
-  width:18px; height:18px;
-  border-color:var(--gold3);
-  border-style:solid;
-  opacity:0.2;
-}
-.corner-bracket.top-left    { top:8px;    left:8px;    border-width:1px 0 0 1px; }
-.corner-bracket.top-right   { top:8px;    right:8px;   border-width:1px 1px 0 0; }
-.corner-bracket.bottom-left { bottom:8px; left:8px;    border-width:0 0 1px 1px; }
-.corner-bracket.bottom-right{ bottom:8px; right:8px;   border-width:0 1px 1px 0; }
-
-@media(max-width:768px){ .hud-tl,.hud-tr,.hud-bl,.hud-br,.corner-bracket{ display:none; } }
+.hud { position:fixed;inset:0;z-index:9988;pointer-events:none;font-family:var(--mono);font-size:0.58rem;font-weight:300;letter-spacing:0.15em;color:var(--muted); }
+.hud-tl,.hud-tr,.hud-bl,.hud-br { position:absolute;display:flex;flex-direction:column;gap:5px; }
+.hud-tl{top:18px;left:18px} .hud-tr{top:18px;right:18px;align-items:flex-end}
+.hud-bl{bottom:18px;left:18px} .hud-br{bottom:18px;right:18px;align-items:flex-end}
+.hud-tag{opacity:0.55} .hud-tag.live{color:var(--gold);opacity:0.8}
+.corner-bracket { position:absolute;width:18px;height:18px;border-color:var(--dim);border-style:solid;opacity:0.35; }
+.corner-bracket.top-left{top:8px;left:8px;border-width:1px 0 0 1px}
+.corner-bracket.top-right{top:8px;right:8px;border-width:1px 1px 0 0}
+.corner-bracket.bottom-left{bottom:8px;left:8px;border-width:0 0 1px 1px}
+.corner-bracket.bottom-right{bottom:8px;right:8px;border-width:0 1px 1px 0}
+@media(max-width:768px){ .hud-tl,.hud-tr,.hud-bl,.hud-br,.corner-bracket{display:none} }

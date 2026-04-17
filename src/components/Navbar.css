@@ -1,18 +1,17 @@
 .navbar { position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:64px;transition:background .35s,border .35s; }
-.navbar.scrolled { background:rgba(2,9,6,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--dim); }
-.nav-logo svg { display:block;filter:drop-shadow(0 0 8px rgba(0,255,65,0.5));transition:.3s; }
-.nav-logo:hover svg { filter:drop-shadow(0 0 16px rgba(0,255,65,0.8)); }
+.navbar.scrolled { background:rgba(6,5,10,0.93);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--dim); }
+.nav-logo svg { display:block;filter:drop-shadow(0 0 8px rgba(201,168,76,0.5));transition:.3s; }
+.nav-logo:hover svg { filter:drop-shadow(0 0 18px rgba(201,168,76,0.85)); }
 .nav-links { display:flex;gap:32px;align-items:center; }
 .nav-links a { font-family:var(--display);font-size:0.68rem;font-weight:600;letter-spacing:0.22em;color:var(--muted);transition:color .2s,text-shadow .2s;text-transform:uppercase; }
-.nav-links a:hover { color:var(--green);text-shadow:0 0 12px rgba(0,255,65,0.6); }
+.nav-links a:hover { color:var(--gold2);text-shadow:0 0 14px rgba(201,168,76,0.6); }
 .burger { display:none;flex-direction:column;gap:6px;background:none;border:none;cursor:none;padding:4px; }
-.burger span { display:block;width:22px;height:1px;background:var(--green);transition:.25s var(--ease);transform-origin:left; }
+.burger span { display:block;width:22px;height:1px;background:var(--gold);transition:.25s var(--ease);transform-origin:left; }
 .burger.open span:nth-child(1){transform:rotate(45deg) translate(1px,-1px)}
 .burger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .burger.open span:nth-child(3){transform:rotate(-45deg) translate(1px,1px)}
 @media(max-width:768px){
-  .navbar{padding:0 22px}
-  .burger{display:flex}
-  .nav-links{position:fixed;inset:0;background:rgba(2,9,6,0.98);flex-direction:column;justify-content:center;align-items:center;gap:2.5rem;display:none;font-size:1.1rem;}
+  .navbar{padding:0 22px} .burger{display:flex}
+  .nav-links{position:fixed;inset:0;background:rgba(6,5,10,0.98);flex-direction:column;justify-content:center;align-items:center;gap:2.5rem;display:none;font-size:1.1rem;}
   .nav-links.open{display:flex}
 }

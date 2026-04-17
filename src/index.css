@@ -1,25 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg:       #020906;
-  --bg2:      #040d07;
-  --bg3:      #071209;
-  --green:    #00ff41;
-  --green2:   #00cc33;
-  --green3:   #008f22;
-  --green-t:  rgba(0,255,65,0.06);
-  --green-t2: rgba(0,255,65,0.12);
-  --dim:      rgba(0,255,65,0.15);
-  --muted:    rgba(0,255,65,0.4);
-  --text:     rgba(0,255,65,0.9);
-  --text2:    rgba(0,255,65,0.65);
-  --red:      #ff2222;
-  --amber:    #ffaa00;
-  --mono:     'Share Tech Mono', monospace;
-  --display:  'Orbitron', monospace;
-  --raj:      'Rajdhani', sans-serif;
-  --ease:     cubic-bezier(0.16,1,0.3,1);
-  --ease2:    cubic-bezier(0.645,0.045,0.355,1);
+  --bg:        #06050a;
+  --bg2:       #0a0910;
+  --bg3:       #0e0d15;
+  --gold:      #c9a84c;
+  --gold2:     #e8c97a;
+  --gold3:     #f5e0a0;
+  --gold-dim:  #7a5e20;
+  --gold-t:    rgba(201,168,76,0.07);
+  --gold-t2:   rgba(201,168,76,0.14);
+  --dim:       rgba(201,168,76,0.18);
+  --dim2:      rgba(201,168,76,0.08);
+  --muted:     rgba(201,168,76,0.45);
+  --text:      rgba(245,224,160,0.95);
+  --text2:     rgba(201,168,76,0.75);
+  --red:       #ff4444;
+  --amber:     #ffcc44;
+  --mono:      'Share Tech Mono', monospace;
+  --display:   'Orbitron', monospace;
+  --raj:       'Rajdhani', sans-serif;
+  --ease:      cubic-bezier(0.16,1,0.3,1);
+  --ease2:     cubic-bezier(0.645,0.045,0.355,1);
 }
 
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
@@ -34,7 +36,7 @@ body {
   -webkit-font-smoothing:antialiased;
 }
 
-/* SCANLINES — Killian's signature */
+/* SCANLINES */
 body::before {
   content:'';
   position:fixed; inset:0; z-index:9991;
@@ -43,8 +45,8 @@ body::before {
     0deg,
     transparent,
     transparent 2px,
-    rgba(0,0,0,0.18) 2px,
-    rgba(0,0,0,0.18) 4px
+    rgba(0,0,0,0.14) 2px,
+    rgba(0,0,0,0.14) 4px
   );
 }
 
@@ -53,16 +55,16 @@ body::after {
   content:'';
   position:fixed; inset:0; z-index:9990;
   pointer-events:none;
-  background:radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.75) 100%);
+  background:radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.7) 100%);
 }
 
-::selection { background:var(--green); color:#000; }
+::selection { background:var(--gold); color:#000; }
 ::-webkit-scrollbar { width:3px; }
 ::-webkit-scrollbar-track { background:#000; }
-::-webkit-scrollbar-thumb { background:var(--green3); }
+::-webkit-scrollbar-thumb { background:var(--gold-dim); }
 
-a { color:var(--green); text-decoration:none; }
-h1,h2,h3 { color:var(--green); }
+a { color:var(--gold2); text-decoration:none; }
+h1,h2,h3 { color:var(--gold2); }
 
 .gpu { will-change:transform,opacity; transform:translateZ(0); }
 .blink { animation:blink 1s step-end infinite; }
@@ -81,9 +83,9 @@ h1,h2,h3 { color:var(--green); }
 .sec-title {
   font-family:var(--display);
   font-size:clamp(1.8rem,4vw,3rem);
-  font-weight:700; color:var(--green);
+  font-weight:700; color:var(--gold2);
   letter-spacing:0.08em;
-  text-shadow:0 0 40px rgba(0,255,65,0.35);
+  text-shadow:0 0 40px rgba(201,168,76,0.4);
   margin-bottom:4px;
 }
 .sec-rule {
@@ -94,7 +96,8 @@ h1,h2,h3 { color:var(--green); }
 /* BUTTONS */
 .btn-primary {
   display:inline-block; padding:14px 32px;
-  background:var(--green); color:#000;
+  background:linear-gradient(135deg,var(--gold-dim),var(--gold));
+  color:#000;
   font-family:var(--display); font-weight:700;
   font-size:0.72rem; letter-spacing:0.18em;
   text-transform:uppercase;
@@ -103,22 +106,22 @@ h1,h2,h3 { color:var(--green); }
   will-change:transform;
 }
 .btn-primary:hover {
-  filter:brightness(1.15);
+  filter:brightness(1.2);
   transform:translate3d(0,-3px,0);
-  box-shadow:0 12px 40px rgba(0,255,65,0.35);
+  box-shadow:0 12px 40px rgba(201,168,76,0.35);
   color:#000;
 }
 .btn-ghost {
   display:inline-block; padding:13px 32px;
   border:1px solid var(--dim);
-  color:var(--green); font-family:var(--display);
+  color:var(--gold2); font-family:var(--display);
   font-weight:600; font-size:0.72rem; letter-spacing:0.18em;
   transition:border-color .25s, background .25s, transform .25s var(--ease);
   will-change:transform;
 }
 .btn-ghost:hover {
-  border-color:var(--green2);
-  background:var(--green-t2);
+  border-color:var(--gold);
+  background:var(--gold-t2);
   transform:translate3d(0,-3px,0);
-  color:var(--green);
+  color:var(--gold2);
 }

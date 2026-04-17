@@ -1,27 +1,22 @@
 .contact { background:var(--bg2); }
-.con-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; }
-.con-tagline { font-family:var(--raj); font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:var(--text); margin-bottom:14px; }
-.con-sub { font-family:var(--raj); font-size:0.9rem; font-weight:400; color:var(--text2); line-height:1.8; margin-bottom:32px; }
+.con-grid { display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start; }
+.con-tagline { font-family:var(--raj);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--text);margin-bottom:14px; }
+.con-sub { font-family:var(--raj);font-size:0.9rem;font-weight:400;color:var(--text2);line-height:1.8;margin-bottom:32px; }
 .con-details { border:1px solid var(--dim); }
-.con-row { display:flex; justify-content:space-between; align-items:center; padding:12px 18px; border-bottom:1px solid var(--dim); transition:background .15s; }
-.con-row:last-child { border-bottom:none; }
-.con-row:hover { background:var(--green-t); }
-.con-k { font-size:0.6rem; letter-spacing:0.2em; color:var(--muted); }
-.con-v { font-size:0.72rem; color:var(--text2); letter-spacing:0.04em; }
-.con-hi { color:var(--green) !important; font-weight:700; }
-.con-form-wrap { border:1px solid var(--dim); background:var(--green-t); overflow:hidden; }
-.cf-hdr { display:flex; justify-content:space-between; padding:11px 18px; border-bottom:1px solid var(--dim); font-size:0.6rem; letter-spacing:0.15em; color:var(--muted); }
-.cf-form { padding:26px; display:flex; flex-direction:column; gap:20px; }
-.cf-field { display:flex; flex-direction:column; gap:7px; }
-.cf-field label { font-size:0.62rem; letter-spacing:0.18em; color:var(--muted); }
-.cf-field input,.cf-field textarea {
-  background:rgba(0,0,0,0.5); border:1px solid var(--dim); border-radius:0;
-  color:var(--text); font-family:var(--mono); font-size:0.8rem;
-  padding:12px 14px; outline:none; resize:vertical;
-  transition:border-color .25s; caret-color:var(--green);
-}
-.cf-field input::placeholder,.cf-field textarea::placeholder { color:rgba(0,255,65,0.2); }
-.cf-field input:focus,.cf-field textarea:focus { border-color:var(--green2); }
-.cf-sent { padding:44px 26px; display:flex; flex-direction:column; gap:12px; font-size:0.82rem; color:var(--green); }
-.cf-ftr { padding:10px 18px; border-top:1px solid var(--dim); font-size:0.58rem; letter-spacing:0.18em; color:rgba(0,255,65,0.2); text-align:right; }
-@media(max-width:900px){ .con-grid{ grid-template-columns:1fr; gap:40px; } }
+.con-row { display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--dim);transition:background .15s; }
+.con-row:last-child{border-bottom:none}
+.con-row:hover{background:var(--gold-t)}
+.con-k { font-size:0.6rem;letter-spacing:0.2em;color:var(--muted); }
+.con-v { font-size:0.72rem;color:var(--text2);letter-spacing:0.04em; }
+.con-hi { color:var(--gold2) !important;font-weight:700; }
+.con-form-wrap { border:1px solid var(--dim);background:var(--gold-t);overflow:hidden; }
+.cf-hdr { display:flex;justify-content:space-between;padding:11px 18px;border-bottom:1px solid var(--dim);font-size:0.6rem;letter-spacing:0.15em;color:var(--muted); }
+.cf-form { padding:26px;display:flex;flex-direction:column;gap:20px; }
+.cf-field { display:flex;flex-direction:column;gap:7px; }
+.cf-field label { font-size:0.62rem;letter-spacing:0.18em;color:var(--muted); }
+.cf-field input,.cf-field textarea { background:rgba(0,0,0,0.5);border:1px solid var(--dim);border-radius:0;color:var(--text);font-family:var(--mono);font-size:0.8rem;padding:12px 14px;outline:none;resize:vertical;transition:border-color .25s;caret-color:var(--gold); }
+.cf-field input::placeholder,.cf-field textarea::placeholder { color:rgba(201,168,76,0.25); }
+.cf-field input:focus,.cf-field textarea:focus { border-color:var(--gold); }
+.cf-sent { padding:44px 26px;display:flex;flex-direction:column;gap:12px;font-size:0.82rem;color:var(--gold2); }
+.cf-ftr { padding:10px 18px;border-top:1px solid var(--dim);font-size:0.58rem;letter-spacing:0.18em;color:var(--muted);opacity:0.45;text-align:right; }
+@media(max-width:900px){.con-grid{grid-template-columns:1fr;gap:40px}}

@@ -1,3 +1,3 @@
-.c-dot { width:8px;height:8px;background:var(--green);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;will-change:transform;box-shadow:0 0 8px var(--green); }
-.c-ring { width:36px;height:36px;border:1px solid var(--green);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9997;opacity:0.4;will-change:transform;transition:width .22s var(--ease),height .22s var(--ease),background .22s,opacity .22s; }
-.c-ring.big { width:56px;height:56px;background:rgba(0,255,65,0.06);opacity:0.25; }
+.c-dot { width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;will-change:transform;box-shadow:0 0 8px rgba(201,168,76,0.8); }
+.c-ring { width:38px;height:38px;border:1px solid var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9997;opacity:0.4;will-change:transform;transition:width .22s var(--ease),height .22s var(--ease),background .22s,opacity .22s; }
+.c-ring.big { width:58px;height:58px;background:rgba(201,168,76,0.06);opacity:0.25; }
